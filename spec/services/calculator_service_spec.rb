@@ -96,6 +96,37 @@ RSpec.describe CalculatorService do
     end
   end
 
+  describe "negative numbers" do
+    before do
+      @x = '2'
+      @y = '-1.5'
+    end
+
+    it "added" do
+      expect(CalculatorService.new("ADD #{@x}, #{@y}").execute).to eq(0.5)
+    end
+
+    it "subtracted bigger - smaller" do
+      expect(CalculatorService.new("SUB #{@x}, #{@y}").execute).to eq(3.5)
+    end
+
+    it "subtracted smaller - bigger" do
+      expect(CalculatorService.new("SUB #{@y}, #{@x}").execute).to eq(-3.5)
+    end
+
+    it "multipplied" do
+      expect(CalculatorService.new("MUL #{@x}, #{@y}").execute).to eq(-3)
+    end
+
+    it "divided bigger / smaller" do
+      expect(CalculatorService.new("DIV #{@x}, #{@y}").execute).to eq(-1.33)
+    end
+
+    it "divided smaller / bigger" do
+      expect(CalculatorService.new("DIV #{@y}, #{@x}").execute).to eq(-0.75)
+    end
+  end
+
   describe "error by" do
     it "numbers separated by comma" do
       x = "2,5"
